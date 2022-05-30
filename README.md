@@ -15,5 +15,3 @@ Hello and welcome to the repository.  This is the repository for a collection of
 - Machine learning algorithms using python and numpy
 
 - Machine Learning projects in python
-
-
