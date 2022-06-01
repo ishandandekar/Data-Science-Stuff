@@ -218,3 +218,46 @@ def is_square(matrix):
     if len(matrix) == len(matrix[0]):
         return True
     return False
+
+
+def get_trace(matrix):
+    """Returns trace of the matrix
+
+    Args:
+        matrix (list): representing the matrix
+
+    Raises:
+        ArithmeticError: to check if the matrix is a square matrix
+
+    Returns:
+        int: trace of the matrix
+    """
+    if is_square(matrix):
+        tr = 0
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if i == j:
+                    tr += matrix[i][i]
+        return tr
+    else:
+        raise ArithmeticError("The matrix should be a square")
+
+
+def get_sparsity_score(matrix):
+    """Returns sparsity of the matrix
+
+    Args:
+        matrix (list): represents the matrix
+
+    Returns:
+        float: sparsity of the matrix rounded to 3 decimal places
+    """
+    rows = len(matrix)
+    cols = len(matrix[0])
+    total_elements = rows*cols
+    count = 0
+    for i in range(rows):
+        for j in range(cols):
+            if matrix[i][j] == 0:
+                count += 1
+    return round(cols/total_elements, 3)
