@@ -2,6 +2,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 import numpy as np
+from datetime import date
 
 
 def load_data():
@@ -43,7 +44,8 @@ def load_data():
             Population_data.append(row_data[13])
         else:
             print("EHHHHH error occured: row length is 0")
-    table_dict = {'Country': country_data, "TotalCases": TotalCases_data, "NewCases": NewCases_data, "TotalDeaths": TotalDeaths_data, "NewDeaths": NewDeaths_data, "TotalRecovered": TotalRecovered_data,
+    date_lst = [date.today()]*len(country_data)
+    table_dict = {'Date': date_lst, 'Country': country_data, "TotalCases": TotalCases_data, "NewCases": NewCases_data, "TotalDeaths": TotalDeaths_data, "NewDeaths": NewDeaths_data, "TotalRecovered": TotalRecovered_data,
                   "ActiveCases": ActiveCases_data, "CriticalCases": CriticalCases_data, "Totcase1M": Totcase1M_data, "Totdeath1M": Totdeath1M_data, "TotalTests": TotalTests_data, "Tottest1M": Tottest1M_data, "Population": Population_data}
     df = pd.DataFrame(table_dict)
     df = df.loc[8:, :]
@@ -55,7 +57,7 @@ def load_data():
         df[col_name] = result
         df[col_name] = pd.to_numeric(
             df[col_name], errors='coerce', downcast='integer')
-    for col in df.columns[1:]:
+    for col in df.columns[2:]:
         comma_remover(col)
         df[col] = df[col].fillna(np.nan)
     return df.reset_index(drop=True)
